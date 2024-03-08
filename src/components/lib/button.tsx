@@ -31,7 +31,8 @@ const Button: FC<ButtonProps> = ({
       <LinearGradient
         colors={[Colors.primary, Colors.secondary]}
         start={{x: 0, y: 0}}
-        end={{x: 1, y: 0}}>
+        end={{x: 1, y: 0}}
+        style={[buttonStyle, {justifyContent: 'center', alignItems: 'center'}]}>
         {children}
       </LinearGradient>
     </TouchableOpacity>

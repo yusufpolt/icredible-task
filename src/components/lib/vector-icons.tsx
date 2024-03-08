@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, {FC} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -55,7 +55,7 @@ const VectorIcons: FC<VectorIconsProps> = ({
   size,
   color,
   ...props
-}) => {
+}): React.JSX.Element => {
   const IconSet = ICON_SETS[type] || ICON_SETS.FontAwesome;
   return <IconSet name={name} size={size} color={color} {...props} />;
 };

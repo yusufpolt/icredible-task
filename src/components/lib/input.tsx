@@ -3,6 +3,7 @@ import {
   StyleSheet,
   TextInput,
   TextInputProps,
+  TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
@@ -34,14 +35,17 @@ const Input: FC<InputProps> = ({
 
   if (hidePassword) {
     rightComponent = (
-      <Button style={styles.secureTextButton} onPress={toggleShowPassword}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={styles.secureTextButton}
+        onPress={toggleShowPassword}>
         <VectorIcons
-          type="font-awesome"
-          name={showPassword ? 'eye' : 'eye-slash'}
-          size={24}
-          color="#FFFFFF80"
+          type="feather"
+          name={showPassword ? 'eye' : 'eye-off'}
+          size={26}
+          color={'#808080'}
         />
-      </Button>
+      </TouchableOpacity>
     );
   } else {
     rightComponent = contentRight;
@@ -94,17 +98,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 16,
     paddingRight: 6,
-    borderWidth: 1,
-    borderColor: '#FFFFFF1A',
+    borderWidth: 1.4,
+    borderColor: Colors.gray,
     borderRadius: 12,
-    backgroundColor: '#FFFFFF0D',
-    height: 48,
+    backgroundColor: 'white',
+    height: 52,
   },
   input: {
-    fontFamily: 'Satoshi',
     fontSize: 18,
     fontWeight: '400',
-    color: '#fff',
+    color: Colors.text,
     height: '100%',
   },
   errorText: {
