@@ -1,24 +1,14 @@
-import {Button, Paragraph} from './src/components';
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
+import AppLayout from './src/routers/app-layout';
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>App</Text>
-      <Button>
-        <Paragraph>Deneme</Paragraph>
-      </Button>
-    </View>
+    <NavigationContainer>
+      <AppLayout />
+    </NavigationContainer>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

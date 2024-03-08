@@ -1,9 +1,12 @@
-import React, { FC, PropsWithChildren } from 'react';
+import {Colors} from '/constants';
+import React, {FC, PropsWithChildren} from 'react';
 import {
+  StyleSheet,
   TouchableOpacity,
   TouchableOpacityProps,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 type ButtonProps = TouchableOpacityProps &
   PropsWithChildren & {
@@ -25,7 +28,12 @@ const Button: FC<ButtonProps> = ({
       disabled={loading}
       style={[buttonStyle, {backgroundColor: backgroundColor}]}
       {...props}>
-      {children}
+      <LinearGradient
+        colors={[Colors.primary, Colors.secondary]}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0}}>
+        {children}
+      </LinearGradient>
     </TouchableOpacity>
   );
 };
