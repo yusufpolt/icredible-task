@@ -73,10 +73,7 @@ const Input: FC<InputProps> = ({
         {rightComponent}
       </View>
       {errorText ? (
-        <Paragraph
-          color={Colors.secondary}
-          size={12}
-          textStyle={styles.errorText}>
+        <Paragraph color={Colors.orange} size={12} textStyle={styles.errorText}>
           {errorText}
         </Paragraph>
       ) : null}

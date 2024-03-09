@@ -1,16 +1,19 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import Paragraph from '../lib/paragraph';
-
 import OpenURLButton from './open-url-button';
 import {Colors} from '/constants';
+import Paragraph from '../lib/paragraph';
 
 const CopyrightComponent = (): React.JSX.Element => {
   const year = new Date().getFullYear();
 
   return (
     <OpenURLButton url="https://icredible.com" color={Colors.text}>
-      Copyright ©{year}. iCredible Technology All Rights Reserved
+      Copyright ©{year}.{' '}
+      <Paragraph weight={'500'} color={'#000'}>
+        iCredible Technology
+      </Paragraph>{' '}
+      All Rights Reserved
     </OpenURLButton>
   );
 };

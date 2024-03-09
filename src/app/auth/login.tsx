@@ -11,9 +11,11 @@ import {
   Paragraph,
 } from '/components';
 import {Colors} from '/constants';
+import {useLogin} from '/hooks';
 
 const Login = ({navigation}: LoginProps): React.JSX.Element => {
   const {bottom} = useSafeAreaInsets();
+  const {values, errors, handleChange, handleSubmit} = useLogin();
   return (
     <>
       <KeyboardAvoidingComponent>
@@ -28,11 +30,22 @@ const Login = ({navigation}: LoginProps): React.JSX.Element => {
             </Paragraph>
           </View>
           <View style={styles.formContainer}>
-            <Input label="Email address" />
-            <Input label="Password" hidePassword />
+            <Input
+              value={values.username}
+              errorText={errors.username}
+              onChangeText={handleChange('username')}
+              label="Username"
+            />
+            <Input
+              value={values.password}
+              errorText={errors.password}
+              onChangeText={handleChange('password')}
+              label="Password"
+              hidePassword
+            />
           </View>
           <View style={styles.buttonContainer}>
-            <Button buttonStyle={styles.button}>
+            <Button onPress={() => handleSubmit()} buttonStyle={styles.button}>
               <Paragraph color={Colors.background} size={18} weight={'600'}>
                 Login
               </Paragraph>

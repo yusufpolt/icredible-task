@@ -11,9 +11,12 @@ import {
   Paragraph,
 } from '/components';
 import {Colors} from '/constants';
+import {useRegister} from '/hooks';
 
 const Register = ({navigation}: RegisterProps): React.JSX.Element => {
   const {bottom} = useSafeAreaInsets();
+  const {values, errors, handleChange, handleSubmit} = useRegister();
+
   return (
     <>
       <KeyboardAvoidingComponent>
@@ -28,12 +31,29 @@ const Register = ({navigation}: RegisterProps): React.JSX.Element => {
             </Paragraph>
           </View>
           <View style={styles.formContainer}>
-            <Input label="Email address" />
-            <Input label="Password" hidePassword />
-            <Input label="Password Confirm" hidePassword />
+            <Input
+              value={values.username}
+              label="Username"
+              errorText={errors.username}
+              onChangeText={handleChange('username')}
+            />
+            <Input
+              value={values.password}
+              label="Password"
+              hidePassword
+              errorText={errors.password}
+              onChangeText={handleChange('password')}
+            />
+            <Input
+              value={values.password_confirm}
+              label="Password Confirm"
+              hidePassword
+              errorText={errors.password_confirm}
+              onChangeText={handleChange('password_confirm')}
+            />
           </View>
           <View style={styles.buttonContainer}>
-            <Button buttonStyle={styles.button}>
+            <Button onPress={() => handleSubmit()} buttonStyle={styles.button}>
               <Paragraph color={Colors.background} size={18} weight={'600'}>
                 Register
               </Paragraph>
