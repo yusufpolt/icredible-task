@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {LoginProps} from 'routers/auth-layout';
 import {images} from '../../../assets';
 import {
   Button,
+  CodeVerifyModal,
   CopyrightComponent,
   Input,
   KeyboardAvoidingComponent,
@@ -15,10 +16,20 @@ import {useLogin} from '/hooks';
 
 const Login = ({navigation}: LoginProps): React.JSX.Element => {
   const {bottom} = useSafeAreaInsets();
-  const {values, errors, handleChange, handleSubmit} = useLogin();
+
+  const {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    visible,
+    setVisible,
+    isPending,
+  } = useLogin();
+
   return (
     <>
-      <KeyboardAvoidingComponent>
+      <KeyboardAvoidingComponent backgroundColor={Colors.background}>
         <View style={styles.container}>
           <Image style={styles.image} source={images.logo_icredible} />
           <View style={styles.headerContainer}>
@@ -35,6 +46,7 @@ const Login = ({navigation}: LoginProps): React.JSX.Element => {
               errorText={errors.username}
               onChangeText={handleChange('username')}
               label="Username"
+              placeholder="username"
             />
             <Input
               value={values.password}
@@ -42,20 +54,35 @@ const Login = ({navigation}: LoginProps): React.JSX.Element => {
               onChangeText={handleChange('password')}
               label="Password"
               hidePassword
+              placeholder="password"
             />
+            <Paragraph
+              textStyle={styles.forgotPasswordText}
+              color={Colors.text}>
+              Forgot Password?{' '}
+              <Paragraph
+                weight={'600'}
+                onPress={() => navigation.navigate('ForgotPassword')}
+                color={Colors.orange}>
+                Recovery
+              </Paragraph>
+            </Paragraph>
           </View>
           <View style={styles.buttonContainer}>
-            <Button onPress={() => handleSubmit()} buttonStyle={styles.button}>
+            <Button
+              loading={isPending}
+              onPress={() => handleSubmit()}
+              buttonStyle={styles.button}>
               <Paragraph color={Colors.background} size={18} weight={'600'}>
                 Login
               </Paragraph>
             </Button>
-            <Paragraph size={18} style={styles.text}>
+            <Paragraph size={18} textStyle={styles.text}>
               Don't have an account?{' '}
               <Paragraph
-                size={16}
-                onPress={() => navigation.navigate('Register')}
+                size={18}
                 weight={'600'}
+                onPress={() => navigation.navigate('Register')}
                 color={Colors.orange}>
                 Register
               </Paragraph>
@@ -66,6 +93,10 @@ const Login = ({navigation}: LoginProps): React.JSX.Element => {
       <View style={[styles.footerContainer, {marginBottom: bottom}]}>
         <CopyrightComponent />
       </View>
+      <CodeVerifyModal
+        isVisible={visible}
+        onDismiss={() => setVisible(false)}
+      />
     </>
   );
 };
@@ -90,7 +121,6 @@ const styles = StyleSheet.create({
     width: 200,
     height: 100,
     resizeMode: 'contain',
-
     alignSelf: 'center',
   },
   buttonContainer: {
@@ -107,5 +137,8 @@ const styles = StyleSheet.create({
   footerContainer: {
     // marginBottom: 30,
     alignItems: 'center',
+  },
+  forgotPasswordText: {
+    alignSelf: 'flex-end',
   },
 });

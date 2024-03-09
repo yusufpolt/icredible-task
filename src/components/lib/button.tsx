@@ -1,6 +1,7 @@
 import {Colors} from '/constants';
 import React, {FC, PropsWithChildren} from 'react';
 import {
+  ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
   TouchableOpacityProps,
@@ -33,7 +34,7 @@ const Button: FC<ButtonProps> = ({
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
         style={[buttonStyle, {justifyContent: 'center', alignItems: 'center'}]}>
-        {children}
+        {loading ? <ActivityIndicator size={'small'} color={Colors.background}/> : children}
       </LinearGradient>
     </TouchableOpacity>
   );

@@ -66,7 +66,7 @@ const Input: FC<InputProps> = ({
           ]}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholderTextColor={'#FFFFFF80'}
+          placeholderTextColor={'#808080'}
           secureTextEntry={hidePassword ? !showPassword : false}
           {...props}
         />

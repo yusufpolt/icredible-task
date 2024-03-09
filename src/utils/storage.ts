@@ -1,29 +1,19 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MMKV} from 'react-native-mmkv';
+
+const mmkv = new MMKV();
 
 export const storage = {
-  async saveItem(key: string, value: string) {
-    try {
-      await AsyncStorage.setItem(key, value);
-    } catch (error: any) {
-      console.error('Error Save Item AsyncStorage: ', error.message);
-    }
+  setItem: (key: string, value: string) => {
+    mmkv.set(key, value);
   },
-
-  async getItem(key: string) {
-    try {
-      const value = await AsyncStorage.getItem(key);
-      return value;
-    } catch (error: any) {
-      console.error('Error Get Item AsyncStorage : ', error.message);
-      return null;
-    }
+  getItem: (key: string) => {
+    const value = mmkv.getString(key);
+    return value;
   },
-
-  async removeItem(key: string) {
-    try {
-      await AsyncStorage.removeItem(key);
-    } catch (error: any) {
-      console.error('Error Remove Item AsyncStorage : ', error.message);
-    }
+  removeItem: (key: string) => {
+    mmkv.delete(key);
+  },
+  setMultipleItem: (key: string, item: any) => {
+    mmkv.set(key, item);
   },
 };

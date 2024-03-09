@@ -4,7 +4,8 @@ import {AxiosError} from 'axios';
 import {useFormik} from 'formik';
 import {showMessage} from 'react-native-flash-message';
 import * as Yup from 'yup';
-import {useAuthenticationAction} from '/store/auth';
+import {useAuthenticationAction, useAuthenticationStore} from '/store/auth';
+import {useState} from 'react';
 
 type UserLoginData = {
   username: string;
@@ -33,7 +34,10 @@ const LoginSchema = Yup.object().shape({
 const useLogin = (
   options?: UseMutationOptions<UserLoginData, AxiosError, UserLoginData>,
 ) => {
-  const {setUser} = useAuthenticationAction();
+  const {setUser, setVerifyUser, setVeriyCodeModal} = useAuthenticationAction();
+  const verify_code_modal = useAuthenticationStore(
+    state => state.verify_code_modal,
+  );
 
   const {mutate, ...props} = useMutation({
     mutationFn: ({username, password}) => handleLogin(username, password),
@@ -41,6 +45,7 @@ const useLogin = (
       console.log('data', data);
       if (data.credentials) {
         setUser(data.credentials);
+        setVeriyCodeModal(true);
         showMessage({
           message: 'Login Successful',
           description: 'You are directed to the Home screen',
@@ -72,6 +77,8 @@ const useLogin = (
   return {
     ...props,
     ...formikProps,
+    visible: verify_code_modal,
+    setVisible: setVeriyCodeModal,
   };
 };
 
